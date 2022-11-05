@@ -1,5 +1,6 @@
 package com.example.reminderapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -11,8 +12,9 @@ public class Database extends SQLiteOpenHelper {
     private static final String REMINDER_TABLE = "reminder";
     private static final String ID = "id";
     private static final String REMINDER_NAME = "name";
+    private static final String DATE = "date";
     private static final String CREATE_REMINDER_TABLE = "CREATE TABLE " + REMINDER_TABLE + "(" +
-            ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + REMINDER_NAME + "TEXT)";
+            ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + REMINDER_NAME + " TEXT, " + DATE + " TEXT)";
 
     private SQLiteDatabase db;
 
@@ -31,5 +33,11 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void openDatabase() {
+        db = this.getWritableDatabase();
+    }
 
+    public void deleteReminder(int id) {
+        db.delete(REMINDER_TABLE, ID +"= ?", new String[] {String.valueOf(id)});
+    }
 }
