@@ -8,7 +8,7 @@ public class Reminder {
 
     public Reminder() {
         name = "default";
-        date = "January 1";
+        date = "default";
         id = 0;
     }
 
