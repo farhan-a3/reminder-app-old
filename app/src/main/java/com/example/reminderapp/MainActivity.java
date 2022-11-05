@@ -1,5 +1,6 @@
 package com.example.reminderapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -20,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     CalendarView calendarview;
@@ -86,5 +89,17 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+    //add event function
+    public void AddCalendarEvent(View view) {
+        Calendar calendarEvent = Calendar.getInstance();
+        Intent i = new Intent(Intent.ACTION_EDIT);
+        i.setType("vnd.android.cursor.item/event");
+        i.putExtra("beginTime", calendarEvent.getTimeInMillis());
+        i.putExtra("allDay", true);
+        i.putExtra("rule", "FREQ=YEARLY");
+        i.putExtra("endTime", calendarEvent.getTimeInMillis() + 60 * 60 * 1000);
+        i.putExtra("title", "Calendar Event");
+        startActivity(i);
     }
 }
